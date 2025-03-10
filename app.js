@@ -10,10 +10,11 @@ const app = express();
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL).then(()=> console.log("Database connected successfully..."));
-app.listen(process.env.PORT, ()=>{console.log(`Server is running on port ${PORT}`)});
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(router);
+
+mongoose.connect(process.env.MONGO_URL).then(()=> console.log("Database connected successfully..."));
+app.listen(process.env.PORT, ()=>{console.log(`Server is running on port ${PORT}`)});
 

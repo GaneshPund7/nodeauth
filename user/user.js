@@ -2,12 +2,18 @@ const jwt = require('jsonwebtoken');
 const userModal = require('./userm');
 const secretKey = "ganeshbhai";
 
-async function users(req, res) {
-    const users = await userModal.find();
-    return res.json(users);
+// async function getUsers(req, res) {
+//     const users = await userModal.find();
+//     return res.json(users);
+// }
+function getUsers(req, res) {
+    userModal.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(500).json({ error: err.message }));
 }
 
-async function user(req, res) {
+
+async function addUsers(req, res) {
     const { userName, password } = req.body;
     try {
         if (!userName || !password) {
@@ -27,7 +33,7 @@ async function user(req, res) {
     }
 }
 
-async function upUser(req, res) {
+async function updateUser(req, res) {
     const { id } = req.params;
     try {
         let { userName, password } = req.body;
@@ -44,7 +50,7 @@ async function upUser(req, res) {
     }
 };
 
-async function deUser(req, res) {
+async function deleteUser(req, res) {
     const { id } = req.params;
     console.log(id);
 
@@ -61,4 +67,4 @@ async function deUser(req, res) {
     }
 }
 
-module.exports = { users, user, upUser, deUser };
+module.exports = { getUsers, addUsers, updateUser, deleteUser };
